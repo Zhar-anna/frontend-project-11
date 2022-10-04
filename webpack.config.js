@@ -4,25 +4,25 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   devServer: {
+    open: true,
     port: 9000,
-    host: 'localhost',
-    progress: true,
-    compress: true,
-    contentBase: path.join(__dirname, 'dist'),
+    host: "localhost",
   },
-//   output: ,
+  // output: {
+  //   path: path.resolve(__dirname, "dist"),
+  // },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-        //   loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //   //   loader: 'babel-loader',
+      //     // options: {
+      //     //   presets: ['@babel/preset-env'],
+      //     // },
+      //   },
+      // },
       { test: /\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader'] },
       {
         test: /\.scss$/,
@@ -40,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'template.html',
+      template: 'index.html',
     }),
   ],
 };
