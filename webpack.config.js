@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
     open: true,
     port: 9000,
     host: "localhost",
+    contentBase: path.join(__dirname, 'dist'),
   },
   // output: {
   //   path: path.resolve(__dirname, "dist"),
