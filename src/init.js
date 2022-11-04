@@ -1,6 +1,7 @@
 
 import { object, string, number, date, InferType } from 'yup';
 import watchedState from './view.js';
+import 'bootstrap';
 
 // состояние и обработчики
 const init = () => {
