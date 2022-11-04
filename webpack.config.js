@@ -8,7 +8,9 @@ module.exports = {
     open: true,
     port: 9000,
     host: "localhost",
-    contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory: path.join(__dirname, "dist")
+    },
   },
   // output: {
   //   path: path.resolve(__dirname, "dist"),
