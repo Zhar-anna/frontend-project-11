@@ -3,7 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: './src/index.js',
+  entry: '/src/index.js',
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: 'main.js',
+  },
   devServer: {
     open: true,
     port: 9000,
@@ -12,9 +16,7 @@ module.exports = {
       directory: path.join(__dirname, "dist")
     },
   },
-  // output: {
-  //   path: path.resolve(__dirname, "dist"),
-  // },
+  
   module: {
     rules: [
       {
