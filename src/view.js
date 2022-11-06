@@ -1,20 +1,19 @@
 // import onChange from 'on-change';
+// import state from './init.js';
 
-// const rssform = document.querySelector('#url-input');
-// const feedback = document.querySelector('.feedback');
+//   const rssform = document.querySelector('.rss-form');
+//   const feedback = document.querySelector('.feedback');
 // const watchedState = onChange(state, (path, value) => {
-//     if (path === 'rssForm.state') {
-//         if (value === 'invalid') {
-//             // из массива достаем нужную ошибку и русуем <p>с ошибкой</p>
-//             feedback.textContent = `${error}`;
-//             rssform.classList.add('form-control', 'w-100', 'is-invalid');
-//         }
-//         if (value === 'valid') {
-//             rssform.reset();
-//             rssform.focus();
-//         }
+//   if (path === 'rssForm.state') {
+//     if (value === 'invalid') {
+//       feedback.textContent = `${state.rssform.errors.notUrl}`;
+//       rssform.classList.add('form-control', 'w-100', 'is-invalid');
+//     } else if (value === 'valid') {
+//         rssform.classList.remove('form-control', 'w-100', 'is-invalid');
+//       rssform.reset();
+//       rssform.focus();
 //     }
-
+//   }
 // });
 
 // export default watchedState;
