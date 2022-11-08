@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 
-export default (state, elements) => onChange(state, (path, value) => {
+export default (state, elements, i18nextInstance) => onChange(state, (path, value) => {
     console.log(value);
     const {
         form,
@@ -15,10 +15,10 @@ export default (state, elements) => onChange(state, (path, value) => {
       if (value === 'invalid') {
         input.classList.add('form-control', 'w-100', 'is-invalid');
         feedbackElement.classList.add('text-danger');
-        feedbackElement.textContent = 'Ссылка должна быть валидным URL';
+        feedbackElement.textContent = i18nextInstance.t('feedback.notUrl');
       } else if (value === 'valid') {
         feedbackElement.classList.add('text-success');
-        feedbackElement.textContent = 'Rss успешно добавлены';
+        feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
         form.reset();
         form.focus();
       }

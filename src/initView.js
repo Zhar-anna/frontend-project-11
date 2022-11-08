@@ -1,5 +1,6 @@
 import { object, string } from 'yup';
-export default (watchedState, elements) => {
+
+export default (watchedState, elements, i18nextInstance) => {
     const {
         rssForm, feeds, posts
     } = watchedState;
@@ -15,12 +16,13 @@ export default (watchedState, elements) => {
           url: string()
           .url()
           .nullable()
-          .notOneOf(feeds.map(({ url }) => url), 'state.rssform.errors.exist'),
+          .notOneOf(feeds.map(({ url }) => url), i18nextInstance.t('feedback.includYet')),
       });
       const url = new FormData(e.target).get('url');
       console.log(url)
       schema
       .validate({ url })
+      .then()
       .then(() => {
         rssForm.state = 'valid';
       })

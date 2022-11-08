@@ -39,6 +39,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-sass": "^3.4.3",
     "bootstrap-sass-loader": "^1.0.10",
+    "i18next": "^22.0.4",
     "lodash": "^4.17.21",
     "on-change": "^4.0.1",
     "yup": "^0.32.11"
