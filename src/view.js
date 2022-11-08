@@ -1,19 +1,26 @@
-// import onChange from 'on-change';
-// import state from './init.js';
+import onChange from 'on-change';
 
-//   const rssform = document.querySelector('.rss-form');
-//   const feedback = document.querySelector('.feedback');
-// const watchedState = onChange(state, (path, value) => {
-//   if (path === 'rssForm.state') {
-//     if (value === 'invalid') {
-//       feedback.textContent = `${state.rssform.errors.notUrl}`;
-//       rssform.classList.add('form-control', 'w-100', 'is-invalid');
-//     } else if (value === 'valid') {
-//         rssform.classList.remove('form-control', 'w-100', 'is-invalid');
-//       rssform.reset();
-//       rssform.focus();
-//     }
-//   }
-// });
+export default (state, elements) => onChange(state, (path, value) => {
+    console.log(value);
+    const {
+        form,
+        input,
+        feedbackElement,
+    } = elements;
 
-// export default watchedState;
+
+    if (path === 'rssForm.state') {
+        input.classList.remove('is-invalid');
+        feedbackElement.classList.remove('text-success', 'text-danger');
+      if (value === 'invalid') {
+        input.classList.add('form-control', 'w-100', 'is-invalid');
+        feedbackElement.classList.add('text-danger');
+        feedbackElement.textContent = 'Ссылка должна быть валидным URL';
+      } else if (value === 'valid') {
+        feedbackElement.classList.add('text-success');
+        feedbackElement.textContent = 'Rss успешно добавлены';
+        form.reset();
+        form.focus();
+      }
+    }
+  });
