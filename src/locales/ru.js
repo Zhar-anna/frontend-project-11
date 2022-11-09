@@ -8,6 +8,5 @@ export default {
         includYet: 'RSS уже существует',
     }
     }
-    
   }
 }

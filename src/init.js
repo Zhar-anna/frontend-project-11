@@ -13,6 +13,7 @@ const init = () => {
   const state = {
     rssForm: {
         state: 'ready',
+        feedback: [],
     },
     feeds: [],
     posts: [],

@@ -1,3 +1,4 @@
+import { ValidationError } from 'webpack';
 import { object, string } from 'yup';
 
 export default (watchedState, elements, i18nextInstance) => {
@@ -16,18 +17,23 @@ export default (watchedState, elements, i18nextInstance) => {
           url: string()
           .url()
           .nullable()
-          .notOneOf(feeds.map(({ url }) => url), i18nextInstance.t('feedback.includYet')),
+          .notOneOf((feeds), i18nextInstance.t('feedback.includYet')),
       });
       const url = new FormData(e.target).get('url');
-      console.log(url)
       schema
       .validate({ url })
       .then()
       .then(() => {
         rssForm.state = 'valid';
+        feeds.push(url);
+        console.log(feeds);
       })
-      .catch(() => {
+      .catch((error) => {
         rssForm.state = 'invalid';
+        if (error instanceof ValidationError) {
+          rssForm.feedback = [...error.errors];
+        }
       })
       });
+      rssForm.state = 'ready';
 };

@@ -1,13 +1,11 @@
 import onChange from 'on-change';
 
 export default (state, elements, i18nextInstance) => onChange(state, (path, value) => {
-    console.log(value);
     const {
         form,
         input,
         feedbackElement,
     } = elements;
-
 
     if (path === 'rssForm.state') {
         input.classList.remove('is-invalid');
@@ -22,5 +20,8 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         form.reset();
         form.focus();
       }
+    }
+    if (path === 'rssForm.feedback') {
+        feedbackElement.textContent = value.map((message) => i18nextInstance.t(message));
     }
   });
