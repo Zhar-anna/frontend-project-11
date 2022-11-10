@@ -2,6 +2,7 @@ import watch from './view.js';
 import initView from './initView.js';
 import i18next from 'i18next';
 import locales from './locales/ru.js'
+// import { setLocale } from 'yup';
 
 const init = () => {
   const i18nextInstance = i18next.createInstance();
@@ -9,7 +10,16 @@ const init = () => {
     lng: 'ru',
     debug: true,
     resources: locales,
-  })
+  });
+  // setLocale({
+  //   mixed: {
+  //     default: 'field_invalid',
+  //     required: 'field_required',
+  //     string: {
+  //       url: 'feedback.notUrl'
+  //     }
+  //   }
+  // });
   const state = {
     rssForm: {
         state: 'ready',
@@ -18,6 +28,8 @@ const init = () => {
     feeds: [],
     posts: [],
   };
+
+
   const elements = {
   form: document.querySelector('.rss-form'),
   input: document.getElementById('url-input'),

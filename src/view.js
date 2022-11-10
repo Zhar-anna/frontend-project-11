@@ -13,15 +13,14 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       if (value === 'invalid') {
         input.classList.add('form-control', 'w-100', 'is-invalid');
         feedbackElement.classList.add('text-danger');
-        feedbackElement.textContent = i18nextInstance.t('feedback.notUrl');
       } else if (value === 'valid') {
         feedbackElement.classList.add('text-success');
-        feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
         form.reset();
         form.focus();
       }
     }
     if (path === 'rssForm.feedback') {
-        feedbackElement.textContent = value.map((message) => i18nextInstance.t(message));
-    }
+        feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
+        }
+
   });

@@ -36,12 +36,17 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "assert": "^2.0.0",
     "bootstrap": "^4.6.0",
     "bootstrap-sass": "^3.4.3",
     "bootstrap-sass-loader": "^1.0.10",
+    "buffer": "^6.0.3",
     "i18next": "^22.0.4",
     "lodash": "^4.17.21",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "on-change": "^4.0.1",
+    "path": "^0.12.7",
+    "request": "^2.79.0",
     "yup": "^0.32.11"
   }
 }
