@@ -6,6 +6,7 @@ export default {
         notRss: 'Ресурс не содержит валидный RSS',
         isValid: 'RSS успешно загружены',
         includYet: 'RSS уже существует',
+        netWorkError: 'Ошибка сети',
     }
     }
   }

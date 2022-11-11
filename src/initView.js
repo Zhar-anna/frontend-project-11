@@ -1,5 +1,7 @@
 import { object, string, ValidationError, setLocale } from 'yup';
 import _ from 'lodash';
+import axios from 'axios';
+import makeProxy from './MakeProxy';
 
 export default (watchedState, elements, i18nextInstance) => {
     const {
@@ -31,7 +33,10 @@ export default (watchedState, elements, i18nextInstance) => {
 
       schema
       .validate({ url })
-      .then()
+      .then(() => axios.get(makeProxy(url)))
+      .then((response) => {
+
+      })
       .then(() => {
         rssForm.state = 'valid';
         feeds.push(url);
@@ -44,6 +49,8 @@ export default (watchedState, elements, i18nextInstance) => {
           rssForm.feedback = [...error.errors];
         } else if (error instanceof TypeError) {
           rssForm.feedback = ['feedback.notRss'];
+        } else if (error.message === 'Network Error') {
+          rssForm.feedback = ['netWorkError'];
         } else {
           rssForm.feedback = [error.message];
         }

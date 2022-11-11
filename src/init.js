@@ -2,7 +2,7 @@ import watch from './view.js';
 import initView from './initView.js';
 import i18next from 'i18next';
 import locales from './locales/ru.js'
-// import { setLocale } from 'yup';
+
 
 const init = () => {
   const i18nextInstance = i18next.createInstance();
