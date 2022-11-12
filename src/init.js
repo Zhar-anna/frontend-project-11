@@ -11,15 +11,7 @@ const init = () => {
     debug: true,
     resources: locales,
   });
-  // setLocale({
-  //   mixed: {
-  //     default: 'field_invalid',
-  //     required: 'field_required',
-  //     string: {
-  //       url: 'feedback.notUrl'
-  //     }
-  //   }
-  // });
+  
   const state = {
     rssForm: {
         state: 'ready',
@@ -34,6 +26,7 @@ const init = () => {
   form: document.querySelector('.rss-form'),
   input: document.getElementById('url-input'),
   feedbackElement: document.querySelector('.feedback'),
+  feedsElement: document.querySelector('.feeds'),
 };
   const watched = watch(state, elements, i18nextInstance);
 

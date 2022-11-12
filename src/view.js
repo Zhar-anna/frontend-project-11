@@ -5,6 +5,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         form,
         input,
         feedbackElement,
+        container,
     } = elements;
 
     if (path === 'rssForm.state') {
@@ -21,6 +22,11 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     }
     if (path === 'rssForm.feedback') {
         feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
-        }
+    }
+    if (path === 'rssForm.feeds') {
 
+    }
+    if (path === 'rssForm.posts') {
+
+    }
   });

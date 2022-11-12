@@ -2,6 +2,7 @@ import { object, string, ValidationError, setLocale } from 'yup';
 import _ from 'lodash';
 import axios from 'axios';
 import makeProxy from './MakeProxy';
+import xmlparser from 'RSSParse';
 
 export default (watchedState, elements, i18nextInstance) => {
     const {
@@ -11,6 +12,7 @@ export default (watchedState, elements, i18nextInstance) => {
         form,
         input,
         feedbackElement,
+        feedsElement,
     } = elements;
     setLocale({
       mixed: {
@@ -35,12 +37,11 @@ export default (watchedState, elements, i18nextInstance) => {
       .validate({ url })
       .then(() => axios.get(makeProxy(url)))
       .then((response) => {
-
+        const { rssFeeds, rrsPosts } = xmlparser(response.data.contents);
       })
       .then(() => {
         rssForm.state = 'valid';
         feeds.push(url);
-        console.log(feeds);
         rssForm.feedback = ['feedback.isValid'];
       })
       .catch((error) => {
