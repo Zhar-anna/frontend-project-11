@@ -44,11 +44,10 @@ export default (watchedState, elements, i18nextInstance) => {
       const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
       const feedId = uuidv4();
       feeds.push({ id: feedId, url, ...rssFeeds});
-      rssPosts.map(({ title, link }) => {
+      posts.push(rssPosts.map(({ title, link }) => {
         const post =  { id: uuidv4(), feedId, title, link };
-        posts.push(post);
         return post;
-      })
+      }))
       rssForm.state = 'valid';
       rssForm.feedback = ['feedback.isValid'];
     })

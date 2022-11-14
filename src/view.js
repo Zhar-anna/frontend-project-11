@@ -23,14 +23,14 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     }
     if (path === 'rssForm.feedback') {
         feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
+        
     }
     if (path === 'feeds') {
-console.log(value);
-     const cardBorder = containerFeeds.createElement('div');
+      containerFeeds.textContent = 'бляяяяяяяя';
+
     }
     if (path === 'posts') {
-            
- 
+      // const cardBorder = containerFeeds.createElement('div');
       // cardBorder.classList.add('card', 'border-0');
       // const cardBody = cardBorder.createElement('div');
       // cardBody.classList.add('ard-body');
