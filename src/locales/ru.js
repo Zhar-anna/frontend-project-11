@@ -7,7 +7,14 @@ export default {
         isValid: 'RSS успешно загружены',
         includYet: 'RSS уже существует',
         netWorkError: 'Ошибка сети',
-    }
+    },
+    posts: {
+      header: 'Посты',
+      buttonShow: 'Просмотр',
+    },
+    feeds: {
+      header: 'Фиды',
+    },
     }
   }
 }

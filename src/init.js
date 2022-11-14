@@ -26,7 +26,8 @@ const init = () => {
   form: document.querySelector('.rss-form'),
   input: document.getElementById('url-input'),
   feedbackElement: document.querySelector('.feedback'),
-  feedsElement: document.querySelector('.feeds'),
+  containerPosts: document.querySelector('.container-xxl > .row > .posts'),
+  containerFeeds: document.querySelector('.container-xxl > .row > .feeds')
 };
   const watched = watch(state, elements, i18nextInstance);
 
