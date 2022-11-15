@@ -45,7 +45,7 @@ export default (watchedState, elements, i18nextInstance) => {
       const feedId = uuidv4();
       feeds.push({ id: feedId, url, ...rssFeeds});
       posts.push(rssPosts.map(({ title, link }) => {
-        const post =  { id: uuidv4(), feedId, title, link };
+        const post =  { id: uuidv4(), feedId, title, link, visted: false };
         return post;
       }))
       rssForm.state = 'valid';
@@ -65,4 +65,14 @@ export default (watchedState, elements, i18nextInstance) => {
       })
     });
   rssForm.state = 'ready';
+  // const cardBorder = document.createElement('div');
+  // cardBorder.classList.add('card', 'border-0');
+  // containerFeeds.prepend(cardBorder);
+  // const cardBody = document.createElement('div');
+  // cardBody.classList.add('card-body');
+  // cardBorder.prepend(cardBody);
+  // const feedsHead = document.createElement('h2');
+  // feedsHead.classList.add('card-title', 'h4');
+  // cardBody.prepend(feedsHead);
+
 };

@@ -27,7 +27,8 @@ const init = () => {
   input: document.getElementById('url-input'),
   feedbackElement: document.querySelector('.feedback'),
   containerPosts: document.querySelector('.container-xxl > .row > .posts'),
-  containerFeeds: document.querySelector('.container-xxl > .row > .feeds')
+  containerFeeds: document.querySelector('.container-xxl > .row > .feeds'),
+  cardBorder: document.querySelector('.border-0'),
 };
   const watched = watch(state, elements, i18nextInstance);
 
