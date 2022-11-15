@@ -16,6 +16,7 @@ export default (watchedState, elements, i18nextInstance) => {
     feedbackElement,
     containerPosts,
     containerFeeds,
+    // cardBorder,
   } = elements;
   setLocale({
     mixed: {
@@ -44,6 +45,7 @@ export default (watchedState, elements, i18nextInstance) => {
       const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
       const feedId = uuidv4();
       feeds.push({ id: feedId, url, ...rssFeeds});
+      console.log(feeds);
       posts.push(rssPosts.map(({ title, link }) => {
         const post =  { id: uuidv4(), feedId, title, link, visted: false };
         return post;
@@ -65,14 +67,17 @@ export default (watchedState, elements, i18nextInstance) => {
       })
     });
   rssForm.state = 'ready';
-  // const cardBorder = document.createElement('div');
-  // cardBorder.classList.add('card', 'border-0');
-  // containerFeeds.prepend(cardBorder);
-  // const cardBody = document.createElement('div');
-  // cardBody.classList.add('card-body');
-  // cardBorder.prepend(cardBody);
-  // const feedsHead = document.createElement('h2');
-  // feedsHead.classList.add('card-title', 'h4');
-  // cardBody.prepend(feedsHead);
-
+  const cardBorder = document.createElement('div');
+  cardBorder.classList.add('card', 'border-0');
+  containerFeeds.prepend(cardBorder);
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+  cardBorder.prepend(cardBody);
+  const feedsHead = document.createElement('h2');
+  feedsHead.classList.add('card-title', 'h4');
+  cardBody.prepend(feedsHead);
+  feedsHead.textContent = i18nextInstance.t('feeds.header');
+  const ul = document.createElement('ul');
+  ul.classList.add('list-group', 'border-0', 'rounder-0');
+  cardBorder.prepend(ul);
 };

@@ -3,7 +3,6 @@ import initView from './initView.js';
 import i18next from 'i18next';
 import locales from './locales/ru.js'
 
-
 const init = () => {
   const i18nextInstance = i18next.createInstance();
   i18nextInstance.init({
@@ -11,7 +10,7 @@ const init = () => {
     debug: true,
     resources: locales,
   });
-  
+
   const state = {
     rssForm: {
         state: 'ready',
