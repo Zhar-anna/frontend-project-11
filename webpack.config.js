@@ -1,27 +1,27 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
   },
   devServer: {
     open: true,
     // port: 9000,
-    host: "localhost",
+    host: 'localhost',
     static: {
-      directory: path.join(__dirname, "dist")
+      directory: path.join(__dirname, 'dist'),
     },
   },
   resolve: {
     fallback: {
-        "fs": false
+      'fs': false,
     },
-},
+  },
   module: {
     rules: [
       {

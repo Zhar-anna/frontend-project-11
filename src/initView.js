@@ -5,10 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import makeProxy from './MakeProxy';
 import xmlparser from './RssParse';
 
-
 export default (watchedState, elements, i18nextInstance) => {
   const {
-      rssForm, feeds, posts
+    rssForm, feeds, posts,
   } = watchedState;
   const {
     form,
@@ -16,7 +15,6 @@ export default (watchedState, elements, i18nextInstance) => {
     feedbackElement,
     containerPosts,
     containerFeeds,
-    // cardBorder,
   } = elements;
   setLocale({
     mixed: {
@@ -25,46 +23,46 @@ export default (watchedState, elements, i18nextInstance) => {
     },
     string: {
       url: 'feedback.notUrl',
-    }
+    },
   });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const schema = object({
       url: string()
-      .url()
-      .nullable()
-      .notOneOf(feeds.map(({ url }) => url), 'feedback.includYet'),
+        .url()
+        .nullable()
+        .notOneOf(feeds.map(({ url }) => url), 'feedback.includYet'),
     });
     const url = new FormData(e.target).get('url');
-    
     schema
-    .validate({ url })
-    .then(() => axios.get(makeProxy(url)))
-    .then((response) => {
-      const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
-      const feedId = uuidv4();
-      feeds.push({ id: feedId, url, ...rssFeeds});
-      console.log(feeds);
-      posts.push(rssPosts.map(({ title, link }) => {
-        const post =  { id: uuidv4(), feedId, title, link, visted: false };
-        return post;
-      }))
-      rssForm.state = 'valid';
-      rssForm.feedback = ['feedback.isValid'];
-    })
-    .catch((error) => {
-      rssForm.state = 'invalid';
-      if (error instanceof ValidationError) {
-        rssForm.feedback = [...error.errors];
-      } else if (error instanceof TypeError) {
-        rssForm.feedback = ['feedback.notRss'];
-      } else if (error.message === 'Network Error') {
-        rssForm.feedback = ['netWorkError'];
-      } else {
-        rssForm.feedback = [error.message];
-      }
+      .validate({ url })
+      .then(() => axios.get(makeProxy(url)))
+      .then((response) => {
+        const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
+        const feedId = uuidv4();
+        feeds.push({ id: feedId, url, ...rssFeeds });
+        posts.push(rssPosts.map(({ title, link }) => {
+          const post = {
+            id: uuidv4(), feedId, title, link, visted: false,
+          };
+          return post;
+        }));
+        rssForm.state = 'valid';
+        rssForm.feedback = ['feedback.isValid'];
       })
-    });
+      .catch((error) => {
+        rssForm.state = 'invalid';
+        if (error instanceof ValidationError) {
+          rssForm.feedback = [...error.errors];
+        } else if (error instanceof TypeError) {
+          rssForm.feedback = ['feedback.notRss'];
+        } else if (error.message === 'Network Error') {
+          rssForm.feedback = ['netWorkError'];
+        } else {
+          rssForm.feedback = [error.message];
+        }
+      });
+  });
   rssForm.state = 'ready';
 };

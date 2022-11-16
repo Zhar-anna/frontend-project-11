@@ -18,7 +18,6 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       feedbackElement.classList.add('text-danger');
     } else if (value === 'valid') {
       feedbackElement.classList.add('text-success');
-      
       form.reset();
       form.focus();
     }
@@ -54,7 +53,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       li.append(p);
       ul.prepend(li);
       return li;
-    })
+    });
     cardBorder.append(ul);
     containerFeeds.append(cardBorder);
   }
@@ -98,9 +97,9 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         button.setAttribute('data-bs-description', p.description);
         button.setAttribute('data-bs-link', p.link);
         button.textContent = i18nextInstance.t('posts.buttonShow');
-        li.append(button)
+        li.append(button);
         ul.prepend(li);
-      })
-    })
+      });
+    });
   }
 });

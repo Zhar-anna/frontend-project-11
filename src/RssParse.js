@@ -1,4 +1,4 @@
-import { XMLParser } from "fast-xml-parser";
+import { XMLParser } from 'fast-xml-parser';
 
 export default (data) => {
   try {
@@ -7,7 +7,9 @@ export default (data) => {
     const { title, description, link } = xml.rss.channel;
     const rssFeeds = { title, description, link };
     const rssPosts = [...xml.rss.channel.item];
-    return { rssFeeds, rssPosts };
+    console.log(rssPosts);
+    return { rssFeeds, rssPosts};
+    
   } catch {
     throw new Error('feedback.notRss');
   }

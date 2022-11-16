@@ -15,6 +15,6 @@ export default {
       feeds: {
         header: 'Фиды',
       },
-    }
-  }
-}
+    },
+  },
+};
