@@ -1,4 +1,4 @@
-import { divide } from 'lodash';
+import _ from 'lodash';
 import onChange from 'on-change';
 
 export default (state, elements, i18nextInstance) => onChange(state, (path, value) => {
@@ -29,39 +29,38 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
   }
 
   if (path === 'feeds') {
-    const cardBorder = document.querySelector('.feeds > .border-0');
-    // const cardBorder = document.createElement('div');
-    // cardBorder.classList.add('card', 'border-0');
-    // containerFeeds.prepend(cardBorder);
-    // const cardBody = document.createElement('div');
-    // cardBody.classList.add('card-body');
-    // cardBorder.prepend(cardBody);
-    // const feedsHead = document.createElement('h2');
-    // feedsHead.classList.add('card-title', 'h4');
-    // feedsHead.textContent = i18nextInstance.t('feeds.header');
-    // cardBody.prepend(feedsHead);
-    // const ul = document.createElement('ul');
-    // ul.classList.add('list-group', 'border-0', 'rounder-0');
-    const ul = document.querySelector('.feeds > .card > .list-group')
+    containerFeeds.innerHTML = '';
+    const cardBorder = document.createElement('div');
+    cardBorder.classList.add('card', 'border-0');
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    cardBorder.prepend(cardBody);
+    const feedsHead = document.createElement('h2');
+    feedsHead.classList.add('card-title', 'h4');
+    feedsHead.textContent = i18nextInstance.t('feeds.header');
+    cardBody.prepend(feedsHead);
+    const ul = document.createElement('ul');
+    ul.classList.add('list-group', 'border-0', 'rounded-0');
     state.feeds.map((feed) => {
       const li = document.createElement('li');
       li.classList.add('list-group-item', 'border-0', 'border-end-0');
       const h3 = document.createElement('h3');
       h3.classList.add('h6', 'm-0');
       h3.textContent = feed.title;
-
       li.prepend(h3);
       const p = document.createElement('p');
       p.classList.add('m-0', 'small', 'text-black-50');
       p.textContent = feed.description;
       li.append(p);
       ul.prepend(li);
-      cardBorder.append(ul);
-      return cardBorder;
+      return li;
     })
+    cardBorder.append(ul);
+    containerFeeds.append(cardBorder);
   }
 
   if (path === 'posts') {
+    containerPosts.innerHTML = '';
     const cardBorder = document.createElement('div');
     cardBorder.classList.add('card', 'border-0');
     containerPosts.prepend(cardBorder);

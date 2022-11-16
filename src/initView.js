@@ -67,17 +67,4 @@ export default (watchedState, elements, i18nextInstance) => {
       })
     });
   rssForm.state = 'ready';
-  const cardBorder = document.createElement('div');
-  cardBorder.classList.add('card', 'border-0');
-  containerFeeds.prepend(cardBorder);
-  const cardBody = document.createElement('div');
-  cardBody.classList.add('card-body');
-  cardBorder.prepend(cardBody);
-  const feedsHead = document.createElement('h2');
-  feedsHead.classList.add('card-title', 'h4');
-  cardBody.prepend(feedsHead);
-  feedsHead.textContent = i18nextInstance.t('feeds.header');
-  const ul = document.createElement('ul');
-  ul.classList.add('list-group', 'border-0', 'rounder-0');
-  cardBorder.prepend(ul);
 };
