@@ -44,7 +44,7 @@ export default (watchedState, elements, i18nextInstance) => {
         feeds.push({ id: feedId, url, ...rssFeeds });
         posts.push(rssPosts.map(({ title, link }) => {
           const post = {
-            id: uuidv4(), feedId, title, link, visted: false,
+            id: uuidv4(), feedId, title, link, visited: false,
           };
           return post;
         }));
@@ -65,4 +65,5 @@ export default (watchedState, elements, i18nextInstance) => {
       });
   });
   rssForm.state = 'ready';
+  
 };

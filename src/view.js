@@ -80,7 +80,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
         const a = document.createElement('a');
         a.setAttribute('href', p.link);
-        a.classList.add('fw-bold');
+        p.visited === 'false' ? a.classList.add('fw-bold') : a.classList.add('fw-normal');
         a.setAttribute('data-id', p.id);
         a.setAttribute('target', '_blank');
         a.setAttribute('rel', 'noopener noreferrer');
