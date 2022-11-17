@@ -33,7 +33,7 @@ const init = () => {
 
   initView(watched, elements, i18nextInstance);
 
-  // setTimeout(() => refresh(watched, refreshTime), refreshTime);
+  setTimeout(() => refresh(watched, refreshTime), refreshTime);
 };
 
 export default init;
