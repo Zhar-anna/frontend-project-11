@@ -7,9 +7,7 @@ export default (data) => {
     const { title, description, link } = xml.rss.channel;
     const rssFeeds = { title, description, link };
     const rssPosts = [...xml.rss.channel.item];
-    console.log(rssPosts);
-    return { rssFeeds, rssPosts};
-    
+    return { rssFeeds, rssPosts };
   } catch {
     throw new Error('feedback.notRss');
   }

@@ -20,6 +20,10 @@ const init = () => {
     },
     feeds: [],
     posts: [],
+    modal: {
+      active: false,
+      postId: null,
+    },
   };
 
   const elements = {
@@ -28,6 +32,8 @@ const init = () => {
     feedbackElement: document.querySelector('.feedback'),
     containerPosts: document.querySelector('.container-xxl > .row > .posts'),
     containerFeeds: document.querySelector('.container-xxl > .row > .feeds'),
+    modalDiv: document.getElementById('modal'),
+    closeModal: document.querySelectorAll('#modal button'),
   };
   const watched = watch(state, elements, i18nextInstance);
 

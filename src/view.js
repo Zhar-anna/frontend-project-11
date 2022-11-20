@@ -8,6 +8,8 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     feedbackElement,
     containerPosts,
     containerFeeds,
+    modalDiv,
+    closaModal,
   } = elements;
 
   if (path === 'rssForm.state') {
@@ -74,32 +76,55 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     const ul = document.createElement('ul');
     ul.classList.add('list-group', 'border-0', 'rounder-0');
     cardBorder.append(ul);
+    console.log(state.modal);
     state.posts.map((post) => {
-      post.map((p) => {
-        const li = document.createElement('li');
-        li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
-        const a = document.createElement('a');
-        a.setAttribute('href', p.link);
-        p.visited === 'false' ? a.classList.add('fw-bold') : a.classList.add('fw-normal');
-        a.setAttribute('data-id', p.id);
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener noreferrer');
-        a.textContent = p.title;
-        li.prepend(a);
-        const button = document.createElement('button');
-        button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
-        button.setAttribute('type', 'button');
-        button.setAttribute('data-id', p.id);
-        button.setAttribute('data-bs-toggle', 'modal');
-        button.setAttribute('data-bs-target', '#modal');
-        button.setAttribute('data-bs-id', p.id);
-        button.setAttribute('data-bs-title', p.title);
-        button.setAttribute('data-bs-description', p.description);
-        button.setAttribute('data-bs-link', p.link);
-        button.textContent = i18nextInstance.t('posts.buttonShow');
-        li.append(button);
-        ul.prepend(li);
-      });
+      const li = document.createElement('li');
+      li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
+      const a = document.createElement('a');
+      a.setAttribute('href', post.link);
+      
+      a.classList.add(post.visited ? 'fw-normal' : 'fw-bold');
+      if (post.visited === true) {
+        a.setAttribute('color', 'grey');
+      }
+      a.setAttribute('data-id', post.id);
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+      a.textContent = post.title;
+      li.prepend(a);
+      const button = document.createElement('button');
+      button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
+      button.setAttribute('type', 'button');
+      button.setAttribute('data-id', post.id);
+      button.setAttribute('data-bs-toggle', 'modal');
+      button.setAttribute('data-bs-target', '#modal');
+      button.setAttribute('data-bs-id', post.id);
+      button.setAttribute('data-bs-title', post.title);
+      button.setAttribute('data-bs-description', post.description);
+      button.setAttribute('data-bs-link', post.link);
+      button.textContent = i18nextInstance.t('posts.buttonShow');
+      li.append(button);
+      ul.prepend(li);
+      return ul;
     });
+  }
+  if (path === 'modal.active') {
+    if (state.modal.active) {
+      modalDiv.classList.add('show');
+      modalDiv.setAttribute('aria-modal', 'true');
+      modalDiv.setAttribute('style', 'display: block');
+    } else {
+      modalDiv.setAttribute('aria-hidden', 'true');
+    }
+  }
+  if (path === 'modal.postId') {
+    const modalTitle = document.querySelector('.modal-title');
+    const modalDescription = document.querySelector('.modal-body');
+    const fullArticle = document.querySelector('.full-article');
+    const activePost = _.find(state.posts, (p) => p.id === state.modal.postId);
+    fullArticle.setAttribute('href', activePost?.link ?? '#');
+    modalTitle.textContent = activePost?.title ?? '';
+    modalDescription.textContent = activePost?.description ?? '';
+    return activePost;
   }
 });

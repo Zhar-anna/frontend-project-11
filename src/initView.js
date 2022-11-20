@@ -1,13 +1,15 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { object, string, ValidationError, setLocale } from 'yup';
+import {
+  object, string, ValidationError, setLocale,
+} from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import makeProxy from './MakeProxy';
 import xmlparser from './RssParse';
 
 export default (watchedState, elements, i18nextInstance) => {
   const {
-    rssForm, feeds, posts,
+    rssForm, feeds, posts, modal,
   } = watchedState;
   const {
     form,
@@ -15,6 +17,8 @@ export default (watchedState, elements, i18nextInstance) => {
     feedbackElement,
     containerPosts,
     containerFeeds,
+    modalDiv,
+    closeModal,
   } = elements;
   setLocale({
     mixed: {
@@ -42,9 +46,12 @@ export default (watchedState, elements, i18nextInstance) => {
         const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
         const feedId = uuidv4();
         feeds.push({ id: feedId, url, ...rssFeeds });
-        posts.push(rssPosts.map(({ title, link }) => {
+        // добавила rest-оператор и тут понеслась
+        posts.push(...rssPosts.map(({
+          title, link, description, guid,
+        }) => {
           const post = {
-            id: uuidv4(), feedId, title, link, visited: false,
+            id: uuidv4(), feedId, title, link, description, visited: false, guid,
           };
           return post;
         }));
@@ -64,6 +71,21 @@ export default (watchedState, elements, i18nextInstance) => {
         }
       });
   });
+
+  modalDiv.addEventListener('show.bs.modal', (e) => {
+    const button = e.relatedTarget;
+    const id = button.getAttribute('data-bs-id');
+    const activePost = _.find(posts, (item) => item.id === id);
+    activePost.visited = true;
+    modal.active = true;
+    modal.postId = id;
+  });
+
+  closeModal.forEach((button) => {
+    button.addEventListener('click', () => {
+      modal.active = false;
+      modal.postId = null;
+    });
+  });
   rssForm.state = 'ready';
-  
 };

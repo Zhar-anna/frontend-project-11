@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -19,7 +20,7 @@ module.exports = {
   },
   resolve: {
     fallback: {
-      'fs': false,
+      fs: false,
     },
   },
   module: {
@@ -52,6 +53,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'main.css',
     }),
     new NodePolyfillPlugin(),
   ],
