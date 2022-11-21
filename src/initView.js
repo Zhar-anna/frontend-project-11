@@ -13,10 +13,10 @@ export default (watchedState, elements, i18nextInstance) => {
   } = watchedState;
   const {
     form,
-    input,
-    feedbackElement,
-    containerPosts,
-    containerFeeds,
+    // input,
+    // feedbackElement,
+    // containerPosts,
+    // containerFeeds,
     modalDiv,
     closeModal,
   } = elements;

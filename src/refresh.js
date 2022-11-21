@@ -10,8 +10,6 @@ const refresh = (watchedState, refreshTime) => {
     .then((response) => {
       const { rssPosts } = RssParse(response.data.contents);
       const findDiff = _.differenceBy(rssPosts, posts, 'guid');
-      // console.log(findDiff);
-      // console.log(post.map((p) => console.log(p)));
       if (!_.isEmpty(findDiff)) {
         const newPush = findDiff.map(({
           title, link, description, guid,
