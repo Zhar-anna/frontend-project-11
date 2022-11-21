@@ -7,16 +7,12 @@ import { v4 as uuidv4 } from 'uuid';
 import makeProxy from './MakeProxy';
 import xmlparser from './RssParse';
 
-export default (watchedState, elements, i18nextInstance) => {
+export default (watchedState, elements) => {
   const {
     rssForm, feeds, posts, modal,
   } = watchedState;
   const {
     form,
-    // input,
-    // feedbackElement,
-    // containerPosts,
-    // containerFeeds,
     modalDiv,
     closeModal,
   } = elements;
@@ -46,7 +42,6 @@ export default (watchedState, elements, i18nextInstance) => {
         const { rssFeeds, rssPosts } = xmlparser(response.data.contents);
         const feedId = uuidv4();
         feeds.push({ id: feedId, url, ...rssFeeds });
-        // добавила rest-оператор и тут понеслась
         posts.push(...rssPosts.map(({
           title, link, description, guid,
         }) => {

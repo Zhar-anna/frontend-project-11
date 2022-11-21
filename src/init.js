@@ -37,7 +37,7 @@ const init = () => {
   };
   const watched = watch(state, elements, i18nextInstance);
 
-  initView(watched, elements, i18nextInstance);
+  initView(watched, elements);
 
   setTimeout(() => refresh(watched, refreshTime), refreshTime);
 };

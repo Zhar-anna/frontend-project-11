@@ -9,7 +9,6 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     containerPosts,
     containerFeeds,
     modalDiv,
-    // closaModal,
   } = elements;
 
   if (path === 'rssForm.state') {
