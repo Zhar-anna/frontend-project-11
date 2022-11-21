@@ -60,7 +60,7 @@ export default (watchedState, elements) => {
         } else if (error instanceof TypeError) {
           rssForm.feedback = ['feedback.notRss'];
         } else if (error.message === 'Network Error') {
-          rssForm.feedback = ['netWorkError'];
+          rssForm.feedback = ['feedback.netWorkError'];
         } else {
           rssForm.feedback = [error.message];
         }
