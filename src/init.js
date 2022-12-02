@@ -16,10 +16,18 @@ const init = () => {
   const state = {
     rssForm: {
       state: 'ready',
-      feedback: [],
+      error: null,
+      // feedback: [],
+    },
+    dataLoading: {
+      state: 'waiting',
+      error: null,
     },
     feeds: [],
     posts: [],
+    uiState: {
+      viewedPostsIds: [],
+    },
     modal: {
       active: false,
       postId: null,

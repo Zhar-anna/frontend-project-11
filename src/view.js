@@ -12,20 +12,48 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
   } = elements;
 
   if (path === 'rssForm.state') {
-    input.classList.remove('is-invalid');
-    feedbackElement.classList.remove('text-success', 'text-danger');
-    if (value === 'invalid') {
-      input.classList.add('form-control', 'w-100', 'is-invalid');
+    switch (value) {
+      case 'ready':
+        // очистить фидбек
+        break;
+        case 'success':
+          //очистить фидбек
+          feedbackElement.classList.add('text-success');
+          feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
+          break;
+          case 'failed':
+          //очистить фидбек
+          feedbackElement.textContent = state.rssForm.error;
+          input.classList.add('form-control', 'w-100', 'is-invalid');
       feedbackElement.classList.add('text-danger');
-    } else if (value === 'valid') {
-      feedbackElement.classList.add('text-success');
-      form.reset();
-      form.focus();
+      break;
+      default:
+        throw new Error(`Unexpected state: ${value}`);
     }
+    
+    // input.classList.remove('is-invalid');
+    // feedbackElement.classList.remove('text-success', 'text-danger');
+    // if (value === 'invalid') {
+    //   input.classList.add('form-control', 'w-100', 'is-invalid');
+    //   feedbackElement.classList.add('text-danger');
+    // } else if (value === 'valid') {
+    //   feedbackElement.classList.add('text-success');
+    //   form.reset();
+    //   form.focus();
+    // }
   }
 
-  if (path === 'rssForm.feedback') {
-    feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
+  if (path === 'rssForm.error') {
+    feedbackElement.textContent = '';
+    if (value) {
+      input.classList.add('is-invalid');
+      feedbackElement.classList.add('text-danger');
+      feedbackElement.textContent = state.rssForm.error;
+    } else {
+      input.classList.remove('is-invalid');
+    feedbackElement.classList.remove('text-success', 'text-danger');
+    }
+    // feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
   }
 
   if (path === 'feeds') {
@@ -41,7 +69,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
     cardBody.prepend(feedsHead);
     const ul = document.createElement('ul');
     ul.classList.add('list-group', 'border-0', 'rounded-0');
-    state.feeds.map((feed) => {
+    state.feeds.forEach((feed) => {
       const li = document.createElement('li');
       li.classList.add('list-group-item', 'border-0', 'border-end-0');
       const h3 = document.createElement('h3');
@@ -53,7 +81,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       p.textContent = feed.description;
       li.append(p);
       ul.prepend(li);
-      return li;
+      // return li;
     });
     cardBorder.append(ul);
     containerFeeds.append(cardBorder);
@@ -80,7 +108,9 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
       const a = document.createElement('a');
       a.setAttribute('href', post.link);
-      a.classList.add(post.visited ? 'fw-normal' : 'fw-bold');
+
+      a.classList.add(state.uiState.viewedPostsIds.includes(post) ? 'fw-normal' : 'fw-bold');
+      // a.classList.add(post.visited ? 'fw-normal' : 'fw-bold');
       a.setAttribute('data-id', post.id);
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener noreferrer');
