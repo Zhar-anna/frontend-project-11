@@ -15,11 +15,12 @@ const refresh = (watchedState, refreshTime) => {
           title, link, description, guid,
         }) => {
           const newPost = {
-            id: uuidv4(), feedId: feed.id, title, link, description, guid, visited: false,
+            id: uuidv4(), feedId: feed.id, title, link, description, guid,
           };
           return newPost;
         });
         posts.push(...newPush);
+        console.log(posts);
       }
     }));
   Promise

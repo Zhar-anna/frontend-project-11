@@ -9,6 +9,6 @@ export default (data) => {
     const rssPosts = [...xml.rss.channel.item];
     return { rssFeeds, rssPosts };
   } catch {
-    throw new Error('feedback.notRss');
+    throw new Error('Parsing Error');
   }
 };

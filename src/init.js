@@ -17,7 +17,6 @@ const init = () => {
     rssForm: {
       state: 'ready',
       error: null,
-      // feedback: [],
     },
     dataLoading: {
       state: 'waiting',

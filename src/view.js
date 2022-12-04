@@ -3,7 +3,6 @@ import onChange from 'on-change';
 
 export default (state, elements, i18nextInstance) => onChange(state, (path, value) => {
   const {
-    form,
     input,
     feedbackElement,
     containerPosts,
@@ -12,35 +11,49 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
   } = elements;
 
   if (path === 'rssForm.state') {
+    console.log(state.rssForm);
     switch (value) {
       case 'ready':
-        // очистить фидбек
+        feedbackElement.textContent = '';
         break;
-        case 'success':
-          //очистить фидбек
-          feedbackElement.classList.add('text-success');
-          feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
-          break;
-          case 'failed':
-          //очистить фидбек
-          feedbackElement.textContent = state.rssForm.error;
-          input.classList.add('form-control', 'w-100', 'is-invalid');
-      feedbackElement.classList.add('text-danger');
-      break;
+      case 'valid':
+        feedbackElement.textContent = '';
+        input.classList.remove('is-invalid');
+        break;
+      case 'invalid':
+        // feedbackElement.textContent = '';
+        feedbackElement.textContent = i18nextInstance.t(`${state.rssForm.error}`);
+        input.classList.add('form-control', 'w-100', 'is-invalid');
+        feedbackElement.classList.remove('text-success');
+        feedbackElement.classList.add('text-danger');
+        break;
       default:
         throw new Error(`Unexpected state: ${value}`);
     }
-    
-    // input.classList.remove('is-invalid');
-    // feedbackElement.classList.remove('text-success', 'text-danger');
-    // if (value === 'invalid') {
-    //   input.classList.add('form-control', 'w-100', 'is-invalid');
-    //   feedbackElement.classList.add('text-danger');
-    // } else if (value === 'valid') {
-    //   feedbackElement.classList.add('text-success');
-    //   form.reset();
-    //   form.focus();
-    // }
+  }
+  if (path === 'dataLoading.state') {
+    feedbackElement.textContent = '';
+    switch (value) {
+      case 'processing':
+        feedbackElement.classList.remove('text-success', 'text-danger');
+        feedbackElement.classList.add('text-warning', 'm-0', 'small', 'feedback');
+        feedbackElement.textContent = i18nextInstance.t('feedback.loading');
+        break;
+      case 'failed':
+        input.classList.remove('is-valid');
+        input.classList.add('is-invalid');
+        feedbackElement.classList.remove('text-success', 'text-warning');
+        feedbackElement.classList.add('text-danger', 'm-0', 'small', 'feedback');
+        feedbackElement.textContent = i18nextInstance.t(`${state.dataLoading.error}`);
+        break;
+      case 'successful':
+        feedbackElement.classList.remove('text-danger', 'text-warning');
+        feedbackElement.classList.add('text-success');
+        feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
+        break;
+      default:
+        throw new Error(`Unexpected state: ${value}`);
+    }
   }
 
   if (path === 'rssForm.error') {
@@ -51,9 +64,8 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       feedbackElement.textContent = state.rssForm.error;
     } else {
       input.classList.remove('is-invalid');
-    feedbackElement.classList.remove('text-success', 'text-danger');
+      feedbackElement.classList.remove('text-success', 'text-danger');
     }
-    // feedbackElement.textContent = value.map((message) => i18nextInstance.t(message)).join(',');
   }
 
   if (path === 'feeds') {
@@ -108,9 +120,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
       const a = document.createElement('a');
       a.setAttribute('href', post.link);
-
-      a.classList.add(state.uiState.viewedPostsIds.includes(post) ? 'fw-normal' : 'fw-bold');
-      // a.classList.add(post.visited ? 'fw-normal' : 'fw-bold');
+      a.classList.add(state.uiState.viewedPostsIds.includes(post) ? ['fw-normal', 'link-secondary'] : 'fw-bold');
       a.setAttribute('data-id', post.id);
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener noreferrer');
@@ -132,6 +142,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       return ul;
     });
   }
+
   if (path === 'modal.active') {
     if (state.modal.active) {
       modalDiv.classList.add('show');
@@ -141,6 +152,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       modalDiv.setAttribute('aria-hidden', 'true');
     }
   }
+
   if (path === 'modal.postId') {
     const modalTitle = document.querySelector('.modal-title');
     const modalDescription = document.querySelector('.modal-body');
