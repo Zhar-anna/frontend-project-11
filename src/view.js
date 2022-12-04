@@ -3,6 +3,7 @@ import onChange from 'on-change';
 
 export default (state, elements, i18nextInstance) => onChange(state, (path, value) => {
   const {
+    form,
     input,
     feedbackElement,
     containerPosts,
@@ -11,7 +12,6 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
   } = elements;
 
   if (path === 'rssForm.state') {
-    console.log(state.rssForm);
     switch (value) {
       case 'ready':
         feedbackElement.textContent = '';
@@ -19,6 +19,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       case 'valid':
         feedbackElement.textContent = '';
         input.classList.remove('is-invalid');
+        form.reset();
         break;
       case 'invalid':
         // feedbackElement.textContent = '';
@@ -26,6 +27,7 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         input.classList.add('form-control', 'w-100', 'is-invalid');
         feedbackElement.classList.remove('text-success');
         feedbackElement.classList.add('text-danger');
+        form.reset();
         break;
       default:
         throw new Error(`Unexpected state: ${value}`);
@@ -45,11 +47,13 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
         feedbackElement.classList.remove('text-success', 'text-warning');
         feedbackElement.classList.add('text-danger', 'm-0', 'small', 'feedback');
         feedbackElement.textContent = i18nextInstance.t(`${state.dataLoading.error}`);
+        form.reset();
         break;
       case 'successful':
         feedbackElement.classList.remove('text-danger', 'text-warning');
         feedbackElement.classList.add('text-success');
         feedbackElement.textContent = i18nextInstance.t('feedback.isValid');
+        form.reset();
         break;
       default:
         throw new Error(`Unexpected state: ${value}`);
@@ -93,7 +97,6 @@ export default (state, elements, i18nextInstance) => onChange(state, (path, valu
       p.textContent = feed.description;
       li.append(p);
       ul.prepend(li);
-      // return li;
     });
     cardBorder.append(ul);
     containerFeeds.append(cardBorder);
