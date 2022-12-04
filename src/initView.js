@@ -20,7 +20,7 @@ export default (watchedState, elements) => {
   const handleErrors = (error) => {
     switch (error.message) {
       case 'Network Error':
-        return 'feedback.networkError';
+        return 'feedback.netWorkError';
       case 'Parsing Error':
         return 'feedback.notRss';
       default:
